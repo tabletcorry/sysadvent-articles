@@ -49,14 +49,14 @@ aggregate.
 
 As an example, if I wanted to find overloaded webservers I could construct a
 query like: 
-`highestAverage(webservers.*.load.longterm, 3)`
+`highestAverage(webservers.*.load.longterm, 3)`.
 This would graph something like the following:
 
 ** Insert Image **
 
 Another example, would be to graph the amount of unused memory on the 
 webservers (time for more memcached if so!)
-`sumSeries(movingAverage(webservers.*.memory.free, 10))`
+`sumSeries(movingAverage(webservers.*.memory.free, 10))`.
 Note that I am also creating a moving average over 10 datapoints here.
 
 ** Insert Image **
