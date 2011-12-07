@@ -65,15 +65,14 @@ And this is only a small selection of the functions available to you. Moreover,
 _you can write your own_! And easily too! Here is an example function in
 graphite:
 
-`
-# A function to scale up all datapoints by a given factor
-def scale(requestContext, seriesList, factor):
-  for series in seriesList:
-    series.name = "scale(%s,%.1f)" % (series.name,float(factor))
-    for i,value in enumerate(series):
-      series[i] = safeMul(value,factor)
-  return seriesList
-`
+
+    # A function to scale up all datapoints by a given factor
+    def scale(requestContext, seriesList, factor):
+      for series in seriesList:
+        series.name = "scale(%s,%.1f)" % (series.name,float(factor))
+        for i,value in enumerate(series):
+          series[i] = safeMul(value,factor)
+      return seriesList
 
 Yes, yes, its in python... But ruby is making too much progress in DevOps, we
 need more variety.
