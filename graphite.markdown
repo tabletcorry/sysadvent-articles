@@ -42,7 +42,7 @@ graphite on your existing RRD data with no hassle. While there are advantages
 to using whisper, it is not required to get the power of graphite.
 
 
-The Power of Aggregation & Functions
+The Power of Filters & Functions
 ------------------------------------
 
 As wonderful as whisper and carbon are (and they really are worth using), the
@@ -56,11 +56,13 @@ In addition, you can use wildcards to select multiple machines quickly. While
 you could do a sum operation like this: `sumSeries(host1.load,host2.load,etc)`
  you could more easily type `sumSeries(*.load)`.
 
+### Filter Example
 As an example, if I wanted to find overloaded webservers I could construct a
 query like `highestAverage(webservers.*.load.longterm, 3)` producing:
 
 ![highestAverage graph](https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png "Highest 3 load averages")
 
+### Stacking example
 Another example, graphing the amount of unused memory on the 
 webservers (time for more memcached if so!)
 `movingAverage(webservers.*.memory.free, 10)` producing:
@@ -70,6 +72,7 @@ Note that I am also creating a moving average over 10 datapoints here. Also,
 the series are stacked to produce a sum while still showing the responsible
 server
 
+### Functions are the best!
 And this is only a small selection of the functions available to you. Moreover,
 _you can write your own_! And easily too! Here is an example function in
 graphite:
