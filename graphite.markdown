@@ -57,10 +57,7 @@ query like:
 `highestAverage(webservers.*.load.longterm, 3)`.
 This would graph something like the following:
 
-<img href="https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png"
-src="https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png"/>
-
-** Insert Image **
+![highestAverage graph](https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png "Highest 3 load averages")
 
 Another example, would be to graph the amount of unused memory on the 
 webservers (time for more memcached if so!)
