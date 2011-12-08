@@ -10,12 +10,12 @@ The problems that I have seen with existing solutions that I have used are:
 
 * Munin: Fails to scale in all respects. Collection is more complicated than it
 should be, and graphs are _pre rendered_ for every possible time window.
-Needless to say, this does not scale well.
+Needless to say, this does not scale well and cannot be used dynamically.
 * Collectd: While this system is excellent at collecting data, the project does
 not officially support any frontend. This has lead to a proliferation of
 frontend projects that, if taken together, have all of the features you need,
 but no one frontend does everything.
-* XYMon: It's been some time since I used this, and I have not used it on a
+* XYMon: It's been some time since I used this, and I have not used it onV a
 large sest of systems. My guess is that it would suffer from some of Munin's
 issues.
 
@@ -23,11 +23,16 @@ issues.
 Enter Graphite
 --------------
 
-Graphite is a collection of services, written in python, that can replace or 
-enchance your existing metric collection setup. The major components are:
+Graphite is a collection of services, that can replace or enchance your 
+existing metric collection setup. Yes, yes, its in python... 
+But ruby is making too much progress in DevOps, we need more variety.
+
+The major components are:
 
 * Whisper: Replaces RRD with a vastly simpler _storage only_ format. Unlike RRD
-it cannot graph data directly.
+it cannot graph data directly. Also unlike RRD, you can actually read and
+understand the entire codebase in less than an hour (only 725 lines of well
+commented python).
 * Carbon: Listens for data on a variety of interfaces (TCP, UDP, Pickle, AMQP)
 and stores the data into whisper.
 * Graphite-webapp: Graphs data from whisper or RRD files.
@@ -65,7 +70,6 @@ And this is only a small selection of the functions available to you. Moreover,
 _you can write your own_! And easily too! Here is an example function in
 graphite:
 
-
     # A function to scale up all datapoints by a given factor
     def scale(requestContext, seriesList, factor):
       for series in seriesList:
@@ -74,5 +78,23 @@ graphite:
           series[i] = safeMul(value,factor)
       return seriesList
 
-Yes, yes, its in python... But ruby is making too much progress in DevOps, we
-need more variety.
+
+Graphite in Production
+----------------------
+
+To give an idea of what life with graphite is like, here is a sketch of the
+setup at my current company.
+
+We are currently collecting >93,000 metrics every 10 seconds. All of that data
+is being consumed and stored on a single machine with six 10k SAS drives in a
+RAID 10 array. Although this disk setup is not enough to write the data in
+real time, it only needs to use about 300 MB of RAM for caching.
+
+In reality, this hardware is probably overkill for our current workload. While
+testing, I was running about 50,000 metrics on four 7.2k SATA drives in a RAID 
+10 and the machine was doing just fine. It was using several GB of RAM to cache
+the data, but it was still able to keep up.
+
+When it comes time to graph the data, any graphs produced contain all data
+collected up to the last 10 seconds. It does this using the built in cache
+lookup to pull data that has not yet been written to disk.
