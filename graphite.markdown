@@ -45,8 +45,11 @@ The only negatives that I currently hold against graphite are:
 
 * The documentation is still a bit lacking, though they are working to improve
 this.
-* The learning curve can be a bit steep. This is offset by the ability to save
-named graphs for all users to see.
+* The learning curve can be a bit steep. While there is an interface to see
+all of the functions, you still need to learn how they are applied.
+This is offset by the ability to save named graphs for all users to see.
+* Feedback is a bit lacking. After a graph is requested it is difficult to
+tell if it is being rendered, or simply failed in the backend.
 * They use launchpad and thus bazaar, for their project management and source
 control. In a post-github world, this is starting to get a bit painful.
 
