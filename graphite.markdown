@@ -16,14 +16,14 @@ not officially support any frontend. This has led to a proliferation of
 frontend projects that, if taken together, have all of the features you need,
 but no one frontend does everything.
 * XYMon: It's been some time since I used this, and I have not used it on a
-large sest of systems. My guess is that it would suffer from some of Munin's
+large set of systems. My guess is that it would suffer from some of Munin's
 issues.
 
 
 Enter Graphite
 --------------
 
-Graphite is a collection of services that can replace or enchance your 
+Graphite is a collection of services that can replace or enhance your 
 existing metric collection setup. Yes, it's written in python... but I like
 python.
 
@@ -120,8 +120,8 @@ the data, but it was still able to keep up.
 In Closing
 ----------
 
-If you are considering the installation of a metic gathering system, I would
-absolutely reccomend Graphite. If you are using Collectd or Munin, give the
+If you are considering the installation of a metric gathering system, I would
+absolutely recommend Graphite. If you are using Collectd or Munin, give the
 web interface a try. It only takes a few minutes to setup and might give you a
 better insight into your servers' health.
 
