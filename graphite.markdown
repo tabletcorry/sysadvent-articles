@@ -44,7 +44,7 @@ to using whisper, it is not required to get the power of graphite.
 The only negatives that I currently hold against graphite are:
 
 * The documentation is still a bit lacking, though they are working to improve
-this
+this.
 * The learning curve can be a bit steep. This is offset by the ability to save
 named graphs for all users to see.
 * They use launchpad and thus bazaar, for their project management and source
@@ -98,19 +98,16 @@ graphite:
 Graphite in Production
 ----------------------
 
-To give an idea of what life with graphite is like, here is a sketch of the
-setup at my current company.
-
 We are currently collecting >93,000 metrics every 10 seconds. Most of the data 
 is gathered on machine using Collectd, and then passed to 
-[a proxy](https://github.com/loggly/collectd-to-graphite) written by our 
-editor. The proxy then ships all of the data, via TCP to our central Carbon
+[a proxy](https://github.com/loggly/collectd-to-graphite) written by sysadvent's 
+editor. The proxy then ships all of the data, via TCP, to our central Carbon
 node.
 
-All of that data is consumed by carbon and stored on a single machine with six 
+All of the data is consumed by carbon and stored on a single machine with six 
 10k SAS drives in a RAID 10 array. Although this disk setup is not enough to 
-write the data in real time, it only needs to use about 300 MB of RAM for 
-caching.
+write the data in real time, it batches up the data and writes sets at once. 
+It only needs to use about 300 MB of RAM for caching.
 
 In reality, this hardware is probably overkill for our current workload. While
 testing, I was running about 50,000 metrics on four 7.2k SATA drives in a RAID 
@@ -122,8 +119,8 @@ In Closing
 
 If you are considering the installation of a metric gathering system, I would
 absolutely recommend Graphite. If you are using Collectd or Munin, give the
-web interface a try. It only takes a few minutes to setup and might give you a
-better insight into your servers' health.
+web interface a try. It only takes a few minutes to setup and might give you
+better insight into your systems.
 
 Links
 -----
