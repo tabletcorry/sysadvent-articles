@@ -12,10 +12,10 @@ The problems that I have seen with existing solutions that I have used are:
 should be, and graphs are _pre rendered_ for every possible time window.
 Needless to say, this does not scale well and cannot be used dynamically.
 * Collectd: While this system is excellent at collecting data, the project does
-not officially support any frontend. This has lead to a proliferation of
+not officially support any frontend. This has led to a proliferation of
 frontend projects that, if taken together, have all of the features you need,
 but no one frontend does everything.
-* XYMon: It's been some time since I used this, and I have not used it onV a
+* XYMon: It's been some time since I used this, and I have not used it on a
 large sest of systems. My guess is that it would suffer from some of Munin's
 issues.
 
@@ -23,9 +23,9 @@ issues.
 Enter Graphite
 --------------
 
-Graphite is a collection of services, that can replace or enchance your 
-existing metric collection setup. Yes, yes, its in python... 
-But ruby is making too much progress in DevOps, we need more variety.
+Graphite is a collection of services that can replace or enchance your 
+existing metric collection setup. Yes, it's written in python... but I like
+python.
 
 The major components are:
 
@@ -37,7 +37,7 @@ commented python).
 and stores the data into whisper.
 * Graphite-webapp: Graphs data from whisper or RRD files.
 
-The best thing about the three components being independent is that you can run
+The best thing about the components being independent is that you can run
 graphite on your existing RRD data with no hassle. While there are advantages
 to using whisper, it is not required to get the power of graphite.
 
@@ -56,6 +56,9 @@ As an example, if I wanted to find overloaded webservers I could construct a
 query like: 
 `highestAverage(webservers.*.load.longterm, 3)`.
 This would graph something like the following:
+
+<img href="https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png"
+src="https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png"/>
 
 ** Insert Image **
 
@@ -98,3 +101,4 @@ the data, but it was still able to keep up.
 When it comes time to graph the data, any graphs produced contain all data
 collected up to the last 10 seconds. It does this using the built in cache
 lookup to pull data that has not yet been written to disk.
+
