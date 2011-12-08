@@ -52,19 +52,23 @@ and understanding of the system, you can apply functions (think `sum`, `avg`,
 `stddev`, etc.) to the metrics either by themselves, or more often, in 
 aggregate.
 
+In addition, you can use wildcards to select multiple machines quickly. While
+you could do a sum operation like this: `sumSeries(host1.load,host2.load,etc)`
+ you could more easily type `sumSeries(*.load)`.
+
 As an example, if I wanted to find overloaded webservers I could construct a
-query like: 
-`highestAverage(webservers.*.load.longterm, 3)`.
-This would graph something like the following:
+query like `highestAverage(webservers.*.load.longterm, 3)` producing:
 
 ![highestAverage graph](https://github.com/tabletcorry/sysadvent-articles/raw/master/load-highest3.png "Highest 3 load averages")
 
-Another example, would be to graph the amount of unused memory on the 
+Another example, graphing the amount of unused memory on the 
 webservers (time for more memcached if so!)
-`sumSeries(movingAverage(webservers.*.memory.free, 10))`.
-Note that I am also creating a moving average over 10 datapoints here.
+`movingAverage(webservers.*.memory.free, 10)` producing:
 
-** Insert Image **
+![memory movingaverage graph](https://github.com/tabletcorry/sysadvent-articles/raw/master/memory-3.png "Stacked memory usage")
+Note that I am also creating a moving average over 10 datapoints here. Also,
+the series are stacked to produce a sum while still showing the responsible
+server
 
 And this is only a small selection of the functions available to you. Moreover,
 _you can write your own_! And easily too! Here is an example function in
